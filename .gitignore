@@ -41,3 +41,5 @@ var/
 *.png
 *.jpg
 *.jpeg
+
+!images/schema_methode_general.png
