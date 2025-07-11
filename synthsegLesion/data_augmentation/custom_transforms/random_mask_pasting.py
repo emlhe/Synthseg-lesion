@@ -59,10 +59,8 @@ class RandomPasteMask(tio.transforms.Transform):
         r = random.random()
 
         if r < p_erode:
-            print("erode")
             return ndimage.binary_erosion(mask, structure=struct)
         elif r < p_erode + p_dilate:
-            print("dilate")
             return ndimage.binary_dilation(mask, structure=struct)
         else:
             return mask.copy()
