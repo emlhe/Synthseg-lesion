@@ -40,4 +40,4 @@ output/
 *.jpg
 *.jpeg
 
-!images/schema_methode_general.png
+!synthsegLesion/images/schema_methode_general.png
