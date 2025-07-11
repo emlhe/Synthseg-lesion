@@ -1,0 +1,21 @@
+[project]
+name = "synthsegLesion"
+version = "0.0.1"
+requires-python = ">=3.10"
+readme = "README.md"
+
+dependencies = [
+    "torchio",
+    "scipy",
+    "numpy>=1.24",
+    "nibabel",
+    "matplotlib",
+    "seaborn"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'

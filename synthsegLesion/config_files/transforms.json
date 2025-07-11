@@ -1,0 +1,78 @@
+{
+    "train_transforms": 
+    [
+    {
+        "name": "RandomLabelsToImage", 
+        "attributes": 
+        {
+            "label_key": "seg",
+            "image_key": "synth",
+            "default_mean": [0, 1],
+            "default_std" : [0.02, 0.1]
+            
+        }
+    },
+    {
+        "name": "RandomFlip",
+        "attributes":
+        {
+            "axes" : "LR",
+            "flip_probability" : 0.5
+        }
+    },
+    {
+        "name": "RandomAffine",
+        "attributes":
+        {
+            "p" : 1,
+            "degrees" : 20,
+            "scales": 0.2,
+            "translation": 10,
+	        "default_pad_value": 0
+        }
+    },
+    {
+        "name": "RandomElasticDeformation",
+        "attributes":
+        {
+            "p" : 0.8,
+	    "num_control_points": 8, 
+	    "max_displacement": 8
+        }
+    },
+    {
+        "name": "RandomBiasField",
+	    "attributes":            {
+	    "coefficients" :0.5,
+	    "order": 3
+	}
+    }
+],
+"motion_transforms": 
+    [
+        {
+            "name": "RandomMotion",
+            "attributes": {
+                "degrees":10,
+                "translation":10,
+                "num_transforms":2
+        }
+        },
+        {
+            "name": "RandomMotion",
+            "attributes": {
+                "degrees":10,
+                "translation":10,
+                "num_transforms":4
+        }
+        },
+        {
+            "name": "RandomMotion",
+            "attributes": {
+                "degrees":10,
+                "translation":10,
+                "num_transforms":8
+        }
+        }
+    ]
+}
