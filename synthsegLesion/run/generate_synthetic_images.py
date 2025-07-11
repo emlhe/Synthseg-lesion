@@ -20,7 +20,7 @@ def entry_point_generate_synthetic_images():
     parser.add_argument('-o', '--out', type=str, default=False, help='Output folder for synthetic images')
     args = parser.parse_args()
 
-    transform_file = "./synthsegLesion/config_files/transforms.json"
+    transform_file = "./synthsegLesion/data_augmentation/transforms.json"
 
     generate_synthetic_images(args.in_labels, args.in_image, args.in_masks, args.out, args.lesion_augmentations, args.n, transform_file)
 

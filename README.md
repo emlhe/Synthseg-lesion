@@ -2,7 +2,7 @@
 
 /!\ This repository is still being updated. 
 
-Using synthseg approach [1] to generate synthetic brains with lesions from labels for whole brain segmentation tasks. 
+Using synthseg approach [1] to generate synthetic brains with lesions (e.g. stroke lesions) from whole brain labels for segmentations tasks. 
 
 <img src="images/schema_methode_general.png"  />
 
@@ -44,7 +44,7 @@ pip install -e .
     ├── config.json
 ```
 
-- Binary lesion masks : files that can be read by SimpleITK or nibabel 
+- Binary lesion masks (can be stroke lesion masks for example): files that can be read by SimpleITK or nibabel 
 ```bash
     masks_folder/
     ├── id-mask-001_mask.nii.gz
