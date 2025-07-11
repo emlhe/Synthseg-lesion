@@ -16,25 +16,26 @@ cd Synthseg-lesion
 pip install -e .
 ```
 
-## How to use:
+## How to use:
+
 ### Data format 
 1. All your images (labels, images and masks) must be normalized in a standard space, with the same dimensions
 2. All your labels must be the same and consecutive
 3. The folders must look like :
     
-     labels_folder/
+    labels_folder/
     ├── id-sub-001_label.nii.gz
     ├── id-sub-002_label.nii.gz
     ├── id-sub-003_label.nii.gz
     ├── ...
 
-     images_folder/
+    images_folder/
     ├── id-sub-001_image.nii.gz
     ├── id-sub-002_image.nii.gz
     ├── id-sub-003_image.nii.gz
     ├── ...
 
-     masks_folder/
+    masks_folder/
     ├── id-mask-001_mask.nii.gz
     ├── id-mask-002_mask.nii.gz
     ├── id-mask-003_mask.nii.gz
