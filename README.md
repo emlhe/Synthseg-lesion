@@ -30,21 +30,24 @@ pip install -e .
     ├── id-sub-003_label.nii.gz
     ├── ...
 ```
-
+```bash
     images_folder/
     ├── id-sub-001_image.nii.gz
     ├── id-sub-002_image.nii.gz
     ├── id-sub-003_image.nii.gz
     ├── ...
-
+```
+```bash
     masks_folder/
     ├── id-mask-001_mask.nii.gz
     ├── id-mask-002_mask.nii.gz
     ├── id-mask-003_mask.nii.gz
     ├── ...
+```
 
 4. The labels folder must contain a config.json file indicating the labels  
 
+```bash
     { 
      "labels": {
        "background": 0,
@@ -54,6 +57,7 @@ pip install -e .
      }, 
      "ignore_labels": [0,4,...]
     }
+```
 
 ```ignore_labels``` is a list of labels to preserve when pasting the lesion mask, such as the ventricles : should always be at least [0] to prevent from pasting voxels in the background.  
 
