@@ -8,9 +8,7 @@ dependencies = [
     "torchio",
     "scipy",
     "numpy>=1.24",
-    "nibabel",
-    "matplotlib",
-    "seaborn"
+    "nibabel"
 ]
 
 [build-system]
