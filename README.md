@@ -23,7 +23,7 @@ pip install -e .
 2. All your classes in the whole brain labels must be the same and consecutive
 3. The file names must look like that (all labels, images and masks can be in the same folder as long as they follow the name format):
 
-- Whole brain images : files that can be read by SimpleITK or nibabel (can be T1w images for example)
+- Brain images : files that can be read by SimpleITK or nibabel (can be T1w images for example)
 ```bash
     images_folder/
     ├── id-sub-001_image.nii.gz
@@ -74,8 +74,8 @@ Run ```python generate_synthetic_images.py``` script with the following paramete
 python generate_synthetic_images.py -inlab LABELS_FOLDER -inimg IMAGES_FOLDER -inmask MASKS_FOLDER -o OUTPUT_FOLDER -n X -lesaug True
 ```
 
-```-n``` indicates the number of images to generate per subject. If ```-lesaug``` = True, perform lesion augmentation (random erosions and dilations) on the lesion masks prior pasting on the labels. In the output folder, imagesTr and labelsTr folders and dataset.json file will be created according to the nnUNet framework [2], to easily train nnUNet models after data generation. 
-
+```-n``` indicates the number of images to generate per subject. If ```-lesaug``` is set to True, perform lesion augmentations (random erosions and dilations) on the lesion masks prior pasting on the labels. In the output folder, imagesTr and labelsTr folders and dataset.json file will be created according to the nnUNet framework [2], to easily train nnUNet models after data generation. 
+ 
 
 # References 
 
