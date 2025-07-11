@@ -5,7 +5,7 @@
         "name": "RandomLabelsToImage", 
         "attributes": 
         {
-            "label_key": "seg",
+            "label_key": "label",
             "image_key": "synth",
             "default_mean": [0, 1],
             "default_std" : [0.02, 0.1]
