@@ -19,17 +19,11 @@ pip install -e .
 ## How to use:
 
 ### Data format 
-1. All your images (labels, images and masks) must be normalized in a standard space, with the same dimensions
-2. All your labels must be the same and consecutive
-3. The folders must look like :
+1. All your images (labels, images and masks) must be priorly normalized in a standard space, with the same dimensions
+2. All your classes in the whole brain labels must be the same and consecutive
+3. The file names must look like that (all labels, images and masks can be in the same folder as long as they follow the name format):
 
-```bash   
-    labels_folder/
-    ├── id-sub-001_label.nii.gz
-    ├── id-sub-002_label.nii.gz
-    ├── id-sub-003_label.nii.gz
-    ├── ...
-```
+- Whole brain images : files that can be read by SimpleITK or nibabel (can be T1w images for example)
 ```bash
     images_folder/
     ├── id-sub-001_image.nii.gz
@@ -37,6 +31,17 @@ pip install -e .
     ├── id-sub-003_image.nii.gz
     ├── ...
 ```
+- Corresponding whole brain parcellation whose pixel values represent segmentation labels : files that can be read by SimpleITK or nibabel 
+```bash   
+    labels_folder/
+    ├── id-sub-001_label.nii.gz
+    ├── id-sub-002_label.nii.gz
+    ├── id-sub-003_label.nii.gz
+    ├── ...
+    ├── config.json
+```
+
+- Binary lesion masks : files that can be read by SimpleITK or nibabel 
 ```bash
     masks_folder/
     ├── id-mask-001_mask.nii.gz
@@ -45,14 +50,14 @@ pip install -e .
     ├── ...
 ```
 
-4. The labels folder must contain a config.json file indicating the labels  
+4. The labels_folder must contain a ```config.json``` file indicating the classes in the label files  
 
 ```bash
     { 
      "labels": {
        "background": 0,
        "label1": 1,
-       "label1": 2
+       "label2": 2
        ...
      }, 
      "ignore_labels": [0,4,...]
@@ -63,7 +68,7 @@ pip install -e .
 
 ### Data generation 
 
-1. Run ```python generate_synthetic_images.py``` script with the following parameters:
+Run ```python generate_synthetic_images.py``` script with the following parameters:
    
 ```bash
 python generate_synthetic_images.py -inlab LABELS_FOLDER -inimg IMAGES_FOLDER -inmask MASKS_FOLDER -o OUTPUT_FOLDER -n X -lesaug True
