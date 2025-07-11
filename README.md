@@ -4,7 +4,7 @@
 
 Using synthseg approach [1] to generate synthetic brains with lesions (e.g. stroke lesions) from whole brain labels for segmentations tasks. 
 
-<img src="images/schema_methode_general.png"  />
+<img src="synthsegLesion/images/schema_methode_general.png"  />
 
 Based on the [following paper](https://hal.science/hal-05123560): 
 
