@@ -22,12 +22,14 @@ pip install -e .
 1. All your images (labels, images and masks) must be normalized in a standard space, with the same dimensions
 2. All your labels must be the same and consecutive
 3. The folders must look like :
-    
+
+```bash   
     labels_folder/
     ├── id-sub-001_label.nii.gz
     ├── id-sub-002_label.nii.gz
     ├── id-sub-003_label.nii.gz
     ├── ...
+```
 
     images_folder/
     ├── id-sub-001_image.nii.gz
