@@ -1,8 +1,7 @@
 import os 
 import numpy as np
-from typing import List, Union, Optional
+from typing import List, Optional
 import torchio as tio
-import torch 
 
     
 def get_files_paths(labels_folder, image_folder=None, file_ending='nii.gz'):
@@ -22,12 +21,11 @@ def get_identifiers(folder: str, file_ending: str):
     files = subfiles(folder, suffix=file_ending, join=False)
     crop = len(file_ending)
     files = [i[:-crop] for i in files]
-    # only unique image ids
     files = np.unique(files)
     return files
 
-## from batchgenerators package (DKFZ)
 def subfiles(folder: str, join: bool = True, prefix: Optional[str] = None, suffix: Optional[str] = None, sort: bool = True) -> List[str]:
+    # From https://github.com/MIC-DKFZ/batchgenerators
     """
     Returns a list of files in a given folder, optionally filtering by prefix and suffix,
     and optionally sorting the results. Uses os.scandir for efficient directory traversal,

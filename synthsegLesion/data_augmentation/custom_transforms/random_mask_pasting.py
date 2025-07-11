@@ -1,7 +1,4 @@
-import torchio
-
 ## Torchio augmentation for pasting lesions
-
 import random
 import nibabel as nib
 import numpy as np

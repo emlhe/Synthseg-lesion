@@ -1,7 +1,5 @@
 import torchio as tio
 import argparse
-import matplotlib.pyplot as plt
-import numpy as np
 from synthsegLesion.utilities.utils import get_files_paths, load_in_torchio_subjects, check_labels
 from synthsegLesion.data_augmentation.custom_transforms.random_mask_pasting import RandomPasteMask
 import os
