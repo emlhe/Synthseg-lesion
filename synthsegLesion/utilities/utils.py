@@ -5,14 +5,14 @@ import torchio as tio
 import torch 
 
     
-def get_files_paths(labels_folder, t1w_folder=None, file_ending='nii.gz'):
-    if t1w_folder==None:
+def get_files_paths(labels_folder, image_folder=None, file_ending='nii.gz'):
+    if image_folder==None:
          identifiers = get_identifiers(labels_folder, '_mask' + file_ending)
          masks = [os.path.join(labels_folder, i + '_mask' + file_ending) for i in identifiers]
          dataset = {i: {'mask': m} for i, m in zip(identifiers, masks)}
     else:
-        identifiers = get_identifiers(t1w_folder, '_T1w' + file_ending)
-        images = [os.path.join(t1w_folder, i + '_T1w' + file_ending) for i in identifiers]
+        identifiers = get_identifiers(image_folder, '_image' + file_ending)
+        images = [os.path.join(image_folder, i + '_image' + file_ending) for i in identifiers]
         labels = [os.path.join(labels_folder, i + '_labels' + file_ending) for i in identifiers]
         dataset = {i: {'image': im, 'labels': lab} for i, im, lab in zip(identifiers, images, labels)}
 

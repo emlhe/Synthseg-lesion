@@ -25,7 +25,6 @@ class RandomPasteMask(tio.transforms.Transform):
         if self.augment:
             mask_img = self.random_morph(mask_img, max_kernel_size=10, p_erode=0.4, p_dilate=0.4)
 
-        mask = mask_img
         seg = subject[self.label_key].data.numpy()
         
         # if mask.shape != seg.shape:
@@ -37,7 +36,7 @@ class RandomPasteMask(tio.transforms.Transform):
         #     pad = (0, dd, 0, dw, 0, dh)
         #     mask = F.pad(mask, pad=pad, mode='constant', value=0)          
 
-        seg = self.paste(mask, seg, ignore_labels=self.ignore_labels)
+        seg = self.paste(mask_img, seg, ignore_labels=self.ignore_labels)
         seg = torch.from_numpy(seg)
 
         subject[self.label_key] = tio.LabelMap(tensor=seg)

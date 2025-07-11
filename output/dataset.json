@@ -1,0 +1,26 @@
+{
+	"channel_names": {
+		"synth": 0
+	},
+	"labels": {
+		"background": 0,
+		"GM": 1,
+		"WM": 2,
+		"CSF": 3,
+		"ventricles": 4,
+		"cerebellum WM": 5,
+		"thalamus": 6,
+		"pallidum": 7,
+		"putamen": 8,
+		"caudate": 9,
+		"accumbens area": 10,
+		"amygdala": 11,
+		"hyppocampus": 12,
+		"eyes": 13,
+		"skull": 14,
+		"head": 15,
+		"lesion": 16
+	},
+	"numTraining": 26,
+	"file_ending": "nii.gz"
+}

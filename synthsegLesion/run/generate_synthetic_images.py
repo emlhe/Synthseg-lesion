@@ -10,10 +10,6 @@ import json
 import sys
 
 def entry_point_generate_synthetic_images():
-    # In label folder, labels must be : idsub_labels.nii.gz + config.json
-    # In images folder, images must be : idsub_T1w.nii.gz
-    # In masks folder, masks must be : idmask_mask.nii.gz
-    # All data (labels + images + masks) must be normalized to the same template before running 
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', type=int, default=1, help='Number of images to generate per subject')
     parser.add_argument('-inlab', '--in_labels', type=str, help='Path of the directory containing the labels nifti files')
@@ -36,6 +32,7 @@ def get_transform_from_json(json_file):
     return tio.Compose([train_transfo, motion_transfo])
 
 def parse_transform(t, transfo_name):
+    # Based on https://github.com/romainVala/Synthetic_learning_on_dHCP
     if isinstance(t, list):
         transfo_list = [parse_transform(tt, transfo_name) for tt in t]
         if transfo_name == 'train_transforms':
@@ -50,9 +47,15 @@ def parse_transform(t, transfo_name):
 
 def generate_synthetic_images(labels_folder, images_folder, masks_folder, output_folder, lesion_augmentations, n_gen, transform_file):
 
-    print(output_folder)
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
+    output_images_folder = os.path.join(output_folder, "imagesTr")
+    if not os.path.exists(output_images_folder):
+        os.makedirs(output_images_folder)
+    output_labels_folder = os.path.join(output_folder, "labelsTr")
+    if not os.path.exists(output_labels_folder):
+        os.makedirs(output_labels_folder)
+
 
     dataset = get_files_paths(labels_folder, images_folder, ".nii.gz")
     masks_dataset = get_files_paths(masks_folder, file_ending=".nii.gz")
@@ -63,16 +66,16 @@ def generate_synthetic_images(labels_folder, images_folder, masks_folder, output
         try:
             config = json.load(f)
             expected_labels=list(config['labels'].values())
+            labels_to_ignore_when_pasting=list(config['ignore_labels'])
         except json.decoder.JSONDecodeError as e:
             print(f"Invalid JSON syntax: {e}")
             sys.exit(1)
-
         
     ## TODO Check mask, labels and image size
     check_labels(subjects_labels_list, expected_labels)
 
     ## TODO Adding a second class when pasting the mask : only if brain MRIs with lesions are present 
-    paste_mask_tr = RandomPasteMask(masks_dataset, label_key="label", augment=lesion_augmentations, ignore_labels=[0,4,14,15])
+    paste_mask_tr = RandomPasteMask(masks_dataset, label_key="label", augment=lesion_augmentations, ignore_labels=labels_to_ignore_when_pasting)
     augment_tr = get_transform_from_json(transform_file)   
     transforms=[paste_mask_tr, augment_tr]
     transform = tio.Compose(transforms)
@@ -82,10 +85,16 @@ def generate_synthetic_images(labels_folder, images_folder, masks_folder, output
     for i in tqdm(range(0,len(subjects_dataset))):
         for n in tqdm(range(0,n_gen)):
             subject = subjects_dataset[i]
-            print(f"{subject.id} saved in {os.path.join(output_folder, f'{subject.id}_...')}")
-            subject.label.save(path=os.path.join(output_folder, f"{subject.id}_label_{n}.nii.gz"))
-            subject.synth.save(path=os.path.join(output_folder, f"{subject.id}_synth_{n}.nii.gz"))
-
+            print(f"{subject.id} image saved in {os.path.join(output_images_folder, f'{subject.id}-{n}_0000.nii.gz')}")
+            print(f"{subject.id} label saved in {os.path.join(output_labels_folder,  f'{subject.id}-{n}.nii.gz')}")
+            subject.label.save(path=os.path.join(output_labels_folder, f"{subject.id}-{n}.nii.gz"))
+            subject.synth.save(path=os.path.join(output_images_folder, f"{subject.id}-{n}_0000.nii.gz"))
+    
+    config['labels']["lesion"]=len(expected_labels)
+    dataset_dict={"channel_names":{"synth":0}, "labels":config["labels"],"numTraining":(i+1)*(n+1), "file_ending":"nii.gz"}
+    print(dataset_dict)
+    with open(os.path.join(output_folder, "dataset.json"), "w") as f:
+        json.dump(dataset_dict , f, indent='\t') 
 
 if __name__ == '__main__':
     entry_point_generate_synthetic_images()
