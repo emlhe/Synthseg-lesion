@@ -1,4 +1,7 @@
 # Synthseg-lesion
+
+/!\ This repository is still being updated. 
+
 Using synthseg approach [1] to generate synthetic brains with lesions from labels for whole brain segmentation tasks. 
 
 <img src="images/schema_methode_general.png"  />

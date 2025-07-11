@@ -15,9 +15,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# IPython Notebook
-.ipynb_checkpoints
+output/
 
 # pyenv
 .python-version
